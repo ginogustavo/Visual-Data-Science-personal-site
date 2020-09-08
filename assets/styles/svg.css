@@ -1,0 +1,86 @@
+svg {
+  border: 2px solid white;
+  background-color: cadetblue;
+}
+.svg_circle {
+  fill: pink;
+  stroke: white;
+  stroke-width: 5;
+  animation-name: sizeChange;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  cursor: pointer;
+}
+.svg_circle.changeColor {
+  fill: white;
+  stroke: pink;
+}
+@keyframes sizeChange {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: translate(-50%, -13%) scale(2, 2);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+.svg_rect {
+  fill: orange;
+  stroke: white;
+  stroke-width: 5;
+  animation: rotation 4s infinite;
+  transition: transform 4s linear;
+  transform-origin: center;
+}
+.svg_rect.otherDirection {
+  animation-direction: reverse;
+}
+@keyframes mymove {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.svg_ellipse {
+  fill: green;
+  stroke: white;
+  stroke-width: 5;
+  animation-name: movement;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  transition-duration: 3s;
+}
+@keyframes movement {
+  0% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(140px);
+  }
+  100% {
+    transform: translateX(-20px);
+  }
+}

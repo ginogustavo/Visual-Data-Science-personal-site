@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gino's website</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <link rel="stylesheet" href="assets/styles/header.css" />
+    <link rel="stylesheet" href="assets/styles/svg.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__author">Gino Ureta</div>
+      <div class="header__menu">
+        <ul>
+          <li><a tabindex="0" href="index.html">About me</a></li>
+          <li><a tabindex="0" href="vis.html">Visualizations</a></li>
+          <li><span class="selectedMenuItem">SVG</span></li>
+          <li><a tabindex="0" href="source.html">Source</a></li>
+        </ul>
+      </div>
+    </header>
+    <section class="MainContainer" id="svg">
+      <div class="MainContainer__Text">
+        <h1 class="sectionTitle">SVG canvas (click on the shapes)</h1>
+
+        <svg width="600" height="700">
+          <circle cx="300" cy="100" r="50" id="svg_circle" class="svg_circle"/>
+          <rect x="250" y="250" width="100" height="100" id="svg_rect"  class="svg_rect"/>
+          <ellipse cx="250" cy="600" rx="150" ry="50" id="svg_ellipse"  class="svg_ellipse"/>
+        </svg>
+
+      </div>
+    </section>
+    <script src="./assets/script/animation.js"></script>
+  </body>
+</html>
