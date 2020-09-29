@@ -2,7 +2,6 @@ let height = 600;
 let width = 1000;
 let margin = { top: 10, bottom: 10, left: 10, right: 40 };
 let active = d3.select(null);
-
 var tempColor,
   cityOrdinates,
   cityDetails,
@@ -16,16 +15,13 @@ let projection = d3
   .translate([width / 2, height / 2])
   .scale([1200]);
 const path = d3.geoPath().projection(projection);
-
 let colorScale = d3.scaleSqrt().domain([2, 20]).range(d3.schemeYlGn[9]);
-
 let svg = d3
   .select("#usmap")
   .append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
   .style("background", "lightgray");
-
 let g = svg.append("g");
 
 const cityTooltip = d3
@@ -48,10 +44,11 @@ Promise.all([
 let tooltip = d3
   .select("body")
   .append("div")
+  .attr("class", "stateToolTip")
   .style("position", "absolute")
   .style("padding", "0 10px")
   .style("margin", "20px")
-  .style("background", "white")
+  // .style("background", "white")
   .style("opacity", 0.2)
   .style("font-size", "2rem")
   .style("font-weight", "bold");
@@ -63,12 +60,12 @@ $(document).ready(function () {
   $("#genderButton").click(function () {
     let gender = "all";
     if ($("#selectGender").val() == "male") {
-      ramp = d3.scaleSequential(d3.interpolatePuBu).domain([0, 1447]); //onlyMalesCount
+      ramp = d3.scaleSequential(d3.interpolatePuBu).domain([0, 1447]);
       gender = "male";
       $("#message").show();
     } else if ($("#selectGender").val() == "female") {
       gender = "female";
-      ramp = d3.scaleSequential(d3.interpolateRdPu).domain([0, 1447]); //onlyFemalesCount
+      ramp = d3.scaleSequential(d3.interpolateRdPu).domain([0, 1447]);
       $("#message").show();
     } else {
       ramp = d3.scaleSequential(d3.interpolateYlGn).domain([0, 1447]);
@@ -119,7 +116,8 @@ function plotMap(data, stateData, ctData, allData, states, freqState, gender) {
     .attr("cursor", "pointer")
     .on("mouseover", function (d) {
       var malesC = freqState.find((t) => t.NAME === d.properties.NAME).males;
-      var femalesC = freqState.find((t) => t.NAME === d.properties.NAME).females;
+      var femalesC = freqState.find((t) => t.NAME === d.properties.NAME)
+        .females;
       let tooltipText = "";
       if (gender === "male") {
         tooltipText =
@@ -129,7 +127,7 @@ function plotMap(data, stateData, ctData, allData, states, freqState, gender) {
           '<span class="tooltip__variable">Total:' + femalesC + "</span>";
       } else {
         tooltipText =
-          "<div>" +
+          "<div >" +
           '<span class="tooltip__title">' +
           d.properties.NAME +
           "</span> <br>" +
@@ -218,7 +216,6 @@ function plotMap(data, stateData, ctData, allData, states, freqState, gender) {
 }
 
 function zoom(d) {
-  
   cityOrdinates = new Map();
   cityDetails = new Array();
 
@@ -287,99 +284,27 @@ function zoom(d) {
       indCityCount = cityDetails.find(({ city }) => city === d[0]);
       return radiusScaler(indCityCount.males + indCityCount.females) + "px";
     })
-    .attr("fill", (d) => {
-      indCityCount = cityDetails.find(({ city }) => city === d[0]);
-      if (indCityCount.males == 0) {
-        return "red";
-      } else if (indCityCount.females == 0) {
-        return "blue";
-      }
-      gradient(indCityCount.males, indCityCount.females);
-      return "url(#gradient)";
-    })
+    .attr("fill", "skyblue")
+
     .style("opacity", 0.4)
     .attr("stroke", "black")
     .attr("stroke-width", "0.5px")
-    .on("mouseover", citySelected)
-    .on("mouseout", cityDisSelected);
-
+    .on("mouseover", zoomCity)
+    .on("mouseout", zoomOutCity);
 }
 
-function citySelected(d, i) {
+function zoomCity(d, i) {
   d3.selectAll("tooltip").remove();
   tooltip.transition().duration(200).style("opacity", 0.9);
   tooltip
-    .html(generateCityTipData(cityDetails[i]))
+    .html(cityToolTip(cityDetails[i]))
     .style("left", d3.event.pageX + "px")
     .style("top", d3.event.pageY + "px");
   d3.select(this).style("opacity", 0.75);
 }
-function cityDisSelected() {
+function zoomOutCity() {
   cityTooltip.transition().style("opacity", 0);
   d3.select(this).style("opacity", 0.4);
-}
-function getDetails(d, i) {
-  if (i) {
-    d3.select("#details").selectAll("text").remove();
-    deathsData = sgdDataCombined.filter((states) => {
-      return states.city === i[0];
-    });
-    d3.select(".cityState").text(i[0] + ", " + deathsData[0].state);
-  } else {
-    stateName = d.properties.name;
-    d3.select("#details").selectAll("text").remove();
-    d3.select(".cityState").text(stateName + ",USA");
-    stateMapping = statesData.find(
-      (state) => state.State === d.properties.NAME
-    );
-    deathsData = sgdDataCombined.filter((states) => {
-      return states.state === stateMapping.PostalCode;
-    });
-  }
-
-  malesCount = getCounts(deathsData, "M");
-  femalesCount = getCounts(deathsData, "F");
-  d3.select(".maleDeaths").text(d3.sum(Object.values(malesCount)));
-  d3.select(".maleChildrenValue").text(malesCount.age1);
-  d3.select(".maleTeensValue").text(malesCount.age2);
-  d3.select(".maleAdultsValue").text(malesCount.age3);
-  d3.select(".femaleDeaths").text(d3.sum(Object.values(femalesCount)));
-  d3.select(".femaleChildrenValue").text(femalesCount.age1);
-  d3.select(".femaleTeensValue").text(femalesCount.age2);
-  d3.select(".femaleAdultsValue").text(femalesCount.age3);
-
-  d3.select("#details")
-    .style("margin-left", "100px")
-    .style("margin-right", "150px")
-    .style("text-align", "justify")
-    .selectAll(".text")
-    .data(deathsData)
-    .enter()
-    .append("text")
-    .attr("class", "fa")
-    .style("font-size", function (d) {
-      return "30px";
-    })
-    .style("padding-right", "5px")
-    .style("padding-bottom", "10px")
-    .text((d) => {
-      if (d.gender === "M") {
-        return "\uf183";
-      } else {
-        return "\uf182";
-      }
-    })
-    .style("color", (d) => {
-      if (d.gender === "M") {
-        return assignColorGender(d.agegroup);
-      }
-      return assignColorAge(d.agegroup);
-    })
-    .on("mouseover", iconHovered)
-    .on("mouseout", iconOvered)
-    .on("click", (d, i) => {
-      return window.open(i.url);
-    });
 }
 
 function reset() {
@@ -395,18 +320,6 @@ function reset() {
   g.selectAll("circle").remove();
   d3.select(".cityState").text("United States of America");
   d3.select("#details").selectAll("text").remove();
-
-  malesCount = getCounts(sgdDataCombined, "M");
-  femalesCount = getCounts(sgdDataCombined, "F");
-  d3.select(".cityState").text("United States of America");
-  d3.select(".maleDeaths").text(d3.sum(Object.values(malesCount)));
-  d3.select(".maleChildrenValue").text(malesCount.age1);
-  d3.select(".maleTeensValue").text(malesCount.age2);
-  d3.select(".maleAdultsValue").text(malesCount.age3);
-  d3.select(".femaleDeaths").text(d3.sum(Object.values(femalesCount)));
-  d3.select(".femaleChildrenValue").text(femalesCount.age1);
-  d3.select(".femaleTeensValue").text(femalesCount.age2);
-  d3.select(".femaleAdultsValue").text(femalesCount.age3);
 }
 
 function getCounts(sgdDataCombined, type) {
@@ -430,72 +343,15 @@ function getCounts(sgdDataCombined, type) {
   };
 }
 
-function iconHovered(d, i) {
-  let iconData = i;
-  d3.selectAll("iconTooltip").remove();
-  iconTooltip.transition().duration(200).style("opacity", 0.9);
-  iconTooltip
-    .html(() => {
-      return generateIconTipData(iconData);
-    })
-    .style("left", d.pageX + "px")
-    .style("top", d.pageY + 10 + "px");
-}
-
-function iconOvered() {
-  iconTooltip.transition().style("opacity", 0);
-}
-function gradient(maleCount, femaleCount) {
-  const total = maleCount + femaleCount;
-  let gradient = svg
-    .append("svg:defs")
-    .append("svg:linearGradient")
-    .attr("id", "gradient")
-    .attr("x1", "0%")
-    .attr("y1", "0%")
-    .attr("x2", "100%")
-    .attr("y2", "100%")
-    .attr("spreadMethod", "pad");
-
-  gradient
-    .append("svg:stop")
-    .attr("offset", "0%")
-    .attr("stop-color", "blue")
-    .attr("stop-opacity", 1);
-
-  gradient
-    .append("svg:stop")
-    .attr("offset", Math.round((maleCount / total) * 100) + "%")
-    .attr("stop-color", "blue")
-    .attr("stop-opacity", 1);
-
-  gradient
-    .append("svg:stop")
-    .attr("offset", Math.round((femaleCount / total) * 100) + "%")
-    .attr("stop-color", "red")
-    .attr("stop-opacity", 1);
-
-  gradient
-    .append("svg:stop")
-    .attr("offset", "100%")
-    .attr("stop-color", "red")
-    .attr("stop-opacity", 1);
-}
-
-function generateCityTipData(cityTipData) {
-  text = `<span><b>` + cityTipData.city + `</b></span>`;
-  text +=
-    `<table style="margin-top: 2.5px;">
-                          <tr><td>Total Deaths: </td><td style="text-align:right">` +
+function cityToolTip(cityTipData) {
+  html = `<span><b>` + cityTipData.city + `</b></span>`;
+  html +=
+    `<div class='cityToolTip'><table><tr><td>Total Deaths: </td><td style="text-align:right">` +
     (cityTipData.males + cityTipData.females) +
-    `</td></tr>
-                          <tr><td>Deaths(Male): </td><td style="text-align:right">` +
+    `</td></tr><tr><td>Deaths(Male): </td><td style="text-align:right">` +
     cityTipData.males +
-    `</td></tr>
-                          <tr><td>Deaths(Female): </td><td style="text-align:right">` +
+    `</td></tr><tr><td>Deaths(Female): </td><td style="text-align:right">` +
     cityTipData.females +
-    `</td></tr>
-                  </table>
-                  `;
-  return text;
+    `</td></tr></table></div>`;
+  return html;
 }

@@ -47,3 +47,10 @@ li {
 .tooltip__value {
   font-weight: lighter;
 }
+.stateToolTip {
+  border-radius: 20px;
+  background-color: orange;
+}
+.cityToolTip{
+  margin-top: 2.5px;
+}
