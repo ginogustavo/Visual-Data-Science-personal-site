@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Visualization</title>
+    <link rel="stylesheet" href="./assets/styles/us_map.css" />
+  </head>
+  <body>
+    <h1>About this project</h1>
+
+    <ul>
+      <li>
+        Using the provided sources SlateGunDeaths.CSV, I applied filtering and
+        grouping to summary the records in the needed format. Initially global
+        info By states and the frequency in order to separate Males and Females
+        victims. This was accomplished using Python - Google Colab.
+      </li>
+      <li>
+        With the base files, I plot the US Map with neutral color codes for
+        global information. Used as base the Samples in Observable web page.
+      </li>
+      <li>
+        I separated Totals of victims in relation to the whole country in order
+        to plot the Scalar Bar at the bottom and code color the States polygons.
+      </li>
+      <li>
+        The other information is the death, gender, and age distribution per
+        each State. displayed in a tooltip when the user hovers the State on the
+        map. Groped by Gender and Ages.
+      </li>
+      <li>
+        The heaviest computing was the City frequency, where I had to draw
+        circles according to the number of occurrences within a state plus the
+        location using the latitude and longitude provided in the source file.
+      </li>
+      <li>
+        Finally, the frequency of victims by gender with respect to the whole
+        country summarizes information about where is more dangerous for a
+        specific gender. Plus visualizing the total number of only that gender
+        per state. I happened to change the color code based on user changes on
+        the dropdown.
+      </li>
+    </ul>
+    <br />
+    <h1>Credit</h1>
+    <ul>
+      <li>
+        D3.js
+        <a target="_blank" href="https://github.com/d3/d3/blob/master/LICENSE"
+          >License</a
+        >
+      </li>
+      <li>
+        Jquery <a target="_blank" href="https://jquery.org/license/">License</a>
+      </li>
+      <li>
+        Linkeding Learning
+        <a
+          target="_blank"
+          href="https://www.linkedin.com/learning/learning-data-visualization-with-d3-js/welcome?u=43607124"
+          >D3.js</a
+        >
+      </li>
+      <li>
+        Mike Bostock's
+        <a
+          target="_blank"
+          href="https://bl.ocks.org/mbostock/8ba407a7a53d80be62a8d54774663c2f"
+          >bl.ocks.org</a
+        >
+      </li>
+      <li>
+        Color Schemes<a
+          target="_blank"
+          href="https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3"
+          >Colorbrewer2</a
+        >
+      </li>
+      <li>
+        W3 Schools <a target="_blank" href="w3schools.com">w3schools.com</a>
+      </li>
+      <li>
+        Mozilla MDN Web
+        <a
+          target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/MDN/About"
+          >Mozila MDN</a
+        >
+      </li>
+      <li>
+        Color Interpolation
+        <a target="_blank" href="https://github.com/d3/d3-interpolate"
+          >d3 GitHub</a
+        >
+      </li>
+    </ul>
+
+    <br />
+
+    <a href="./assets/d3map.html">Back to Visualization</a>
+  </body>
+</html>

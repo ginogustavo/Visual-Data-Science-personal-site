@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map</title>
+    <link rel="stylesheet" href="./styles/us_map.css" />
+  </head>
+  <body>
+    <h1>Deaths by Gun Visualization</h1>
+    <h2>USA 2012 - 2013</h2>
+    <div id="usmap" class="container"></div>
+    <br/>
+    <div>
+      <span class="chooseGender">Select Gender: </span> 
+      <select id="selectGender">
+        <option value="all" selected="selected">All</option>
+        <option value="male" >Male</option>
+        <option value="female">Female</option>
+      </select>
+      <button type="button" id='genderButton'> Refresh </button>
+      <span id="message">* Totals changed.</span>
+    </div>
+
+    <h1> <a  href="../about.html" class="chooseGender">About</a> </h1>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js"></script>
+    <!-- <script src="./script/d3.min.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+    <script src="visualization.js"></script>
+  </body>
+</html>
