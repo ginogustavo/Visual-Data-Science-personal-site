@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gino's website</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles/main.css" />
+    <link rel="stylesheet" href="assets/styles/header.css" />
+
+    <!-- CSS Libraries -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <!-- CSS Source -->
+    <!-- <link rel="stylesheet" href="./src/css/mainFlow.css" /> -->
+    <link rel="stylesheet" href="./assets/styles/mainFlow.css" />
+    <!-- JS Libraries -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <!-- <script src="lib/js/three.min.js"></script> -->
+    <script src="./assets/script/flowvis/three.min.js"></script>
+
+    <!-- <script src="lib/js/OrbitControls.js"></script> -->
+    <script src="./assets/script/flowvis/OrbitControls.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.6/d3.min.js"></script>
+
+    <!-- JS Source -->
+    <script src="./assets/script/flowvis/scene.js"></script>
+    <script src="./assets/script/flowvis/particleSystem.js"></script>
+    <script src="./assets/script/flowvis/main.js"></script>
+  </head>
+  <body onload="App.start();" class="mainpage">
+    <header class="header">
+      <div class="header__author">Gino Ureta</div>
+      <div class="header__menu">
+        <ul>
+          <li><a tabindex="0" href="index.html">About me</a></li>
+          <li><a tabindex="0" href="vis.html">Visualizations</a></li>
+          <li><a tabindex="0" href="svg.html">SVG</a></li>
+          <li><a tabindex="0" href="source.html">Source</a></li>
+          <li><span class="selectedMenuItem">Flow Vis</span></li>
+        </ul>
+      </div>
+    </header>
+    <!-- <section class="MainContainer" id="flow"> -->
+    <!-- <div class="MainContainer__Text">
+            <h1 class="sectionTitle">Flow Visualization</h1>
+        </div> -->
+
+    <div class="container-fluid">
+      <div class="row">
+        <h1 class="sectionTitle">Fluid Flow Visualization (Three.js)</h1>
+        <div class="particleDiv col-md-6">
+          <div id="scene"></div>
+        </div>
+        <div class="particleDiv col-md-6">
+          <div id="view2"></div>
+          <div id="viewControls"></div>
+        </div>
+      </div>
+    </div>
+    <br /><br />
+    <h1 class="sectionTitle">Credits / Acknowledgements</h1>
+    <ul>
+      <li>
+        <a
+          href="https://github.com/mrdoob/three.js/blob/dev/LICENSE"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Three.js Library and Documentation
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/d3/d3/blob/master/LICENSE"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          D3.js
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/uic-evl/cs529-vds"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          EVL HW03 boilerplate code
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.uni-kl.de/sciviscontest/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          DataSet
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/twbs/bootstrap/blob/main/LICENSE"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Bootstrap
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://developer.mozilla.org/en-US/docs/MDN/About#Copyrights_and_licenses"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Mozilla MDN
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://codepen.io/JiveDig/pen/jbdJXR?editors=1100"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Code samples from CodePen.io
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://www.w3schools.com/howto/howto_js_rangeslider.asp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Code samples from w3schools.com
+        </a>
+      </li>
+    </ul>
+  </body>
+</html>

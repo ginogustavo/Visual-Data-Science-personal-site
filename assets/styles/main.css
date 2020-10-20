@@ -41,7 +41,9 @@ section {
   color: rgb(100, 255, 218);
   font-size: 30px;
 }
-
+.mainpage{
+  background-color: rgb(10, 25, 47);
+}
 .MainContainer {
   color: rgb(136, 146, 176);
   display: flex;
